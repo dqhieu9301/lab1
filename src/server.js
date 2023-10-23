@@ -17,6 +17,7 @@ app.use(express.json())
 
 
 app.get('/', function (req, res) {
+
   if (req.query.newReview) reviews.push(req.query.newReview);
   const formattedReviews = reviews.map((review)=> `<dt>User</dt><dd>${review}</dd>`).join(' ');
   const template = fs.readFileSync('./templates/index.html', 'utf8');

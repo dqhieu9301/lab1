@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang=en>
   <head>
+
     <meta charset=utf-8>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" type="text/css" href="css/tacit-css.min.css"/>
@@ -46,12 +47,8 @@
         margin-top: 50px;
       }
     </style>
-
-    <script>
-      function redirectLogin() {
-        window.location.replace("http://localhost:3000/login");
-      }
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.min.js"></script>
   </head>
   <body>
     <div class="container">
@@ -61,7 +58,11 @@
               </section>
         </div>
         <div>
-            <Button class="login" onclick="redirectLogin()">Login</Button>
+            <Button id="login" onclick="redirectLogin()">Login</Button>
+            <div class="container_name">
+              <span class="name_user"></span>
+              <button class="logout" onclick="logOut()">Đăng xuất</button>
+            </div>
         </div>
     </div>
 
@@ -82,6 +83,42 @@
             </dl>
           </section>
     </div>
+    <script>
+      function redirectLogin() {
+        window.location.replace("http://localhost:3000/login");
+      }
 
+      function logOut() {
+        Cookies.remove("accessToken")
+        window.location.replace("http://localhost:3000/login");
+      }
+
+      function loadToKen() {
+        const accessToken = Cookies.get('accessToken');
+        if(accessToken != null && accessToken != undefined) {
+          let payload = null;
+          try {
+            payload = jwt_decode(accessToken);
+            console.log(payload)
+          } catch (e) {
+            window.location.replace("http://localhost:3000/login");
+          }
+        
+
+          const btnLogin = document.querySelector("#login");
+          btnLogin.style.display = 'none'
+
+          const divContainerName = document.querySelector('.container_name')
+          divContainerName.style.display = 'initial'
+
+          const spanNameUser = document.querySelector('.name_user')
+          spanNameUser.textContent = `Hi, ${payload.username}`
+        } else {
+
+        }
+        
+      }
+      loadToKen()
+    </script>
   </body>
 </html>
