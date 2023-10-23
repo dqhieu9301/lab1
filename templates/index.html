@@ -61,6 +61,7 @@
             <Button id="login" onclick="redirectLogin()">Login</Button>
             <div class="container_name">
               <span class="name_user"></span>
+              <button class="infor-user" onclick="inforUser()">Thông tin người dùng</button>
               <button class="logout" onclick="logOut()">Đăng xuất</button>
             </div>
         </div>
@@ -91,6 +92,10 @@
       function logOut() {
         Cookies.remove("accessToken")
         window.location.replace("http://localhost:3000/login");
+      }
+
+      function inforUser() {
+        window.location.replace("http://localhost:3000/infor-user");
       }
 
       function loadToKen() {

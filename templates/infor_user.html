@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infor-user</title>
+    <style>
+        .container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 200px;
+        }
+        #form {
+            display: flex;
+            flex-direction: column;
+            width: 250px;
+        }
+        .item {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <form action="/infor_user" method="POST" id="form">
+            <input type="text" name="username" placeholder="username" class="item"/>
+            <input type="text" name="adress" placeholder="address" class="item"/>
+            <input type="text" name="phoneNumber" placeholder="phoneNumber" class="item"/>
+            <button type="submit" class="item">Save</button>
+        </form>
+    </div>
+</body>
+</html>
