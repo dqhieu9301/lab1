@@ -1,0 +1,28 @@
+{
+  "name": "xss-sample-app",
+  "version": "1.0.0",
+  "description": "A sample environment to test XSS vulnerability.",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon src/server.js",
+    "watch": "node-sass --watch src/resources/scss/app.scss src/public/css/app.css src/public/css/style.css",
+    "start-attacker": "node attacker-server.js"
+  },
+  "keywords": [],
+  "author": "Andrea Chiarelli",
+  "license": "ISC",
+  "dependencies": {
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "ejs": "^3.1.5",
+    "express": "^4.17.1",
+    "express-handlebars": "^6.0.6",
+    "express-session": "^1.17.1",
+    "handlebars-helpers": "^0.10.0",
+    "jsonwebtoken": "^9.0.2",
+    "mysql2": "^3.6.2",
+    "mysql2-promise": "^0.1.4",
+    "node-sass": "^7.0.3",
+    "nodemon": "^2.0.4"
+  }
+}
