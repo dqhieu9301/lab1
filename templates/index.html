@@ -1,37 +1,36 @@
 <!DOCTYPE html>
-<html lang=en>
+<html lang="en">
   <head>
-
-    <meta charset=utf-8>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link rel="stylesheet" type="text/css" href="css/tacit-css.min.css"/>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="css/tacit-css.min.css" />
     <title>Demo XSS</title>
     <style>
       body {
-        padding-top:0px;
+        padding-top: 0px;
       }
       .thin {
-        margin-top:5px;
-        margin-bottom:5px;
+        margin-top: 5px;
+        margin-bottom: 5px;
       }
       #search-form {
-        text-align:right;
-        margin-bottom:0;
-        padding-bottom:0;
+        text-align: right;
+        margin-bottom: 0;
+        padding-bottom: 0;
       }
       #search-result {
         display: none;
       }
       #movie-data {
-        padding-bottom:10px;
+        padding-bottom: 10px;
       }
       #playbill {
-        vertical-align:top;
-        margin:10px;
+        vertical-align: top;
+        margin: 10px;
       }
       #movie-details {
-        display:inline-block;
-        width:40%;
+        display: inline-block;
+        width: 40%;
       }
       #search-term {
         font-style: italic;
@@ -52,37 +51,42 @@
   </head>
   <body>
     <div class="container">
-        <div>
-            <section>
-                <h1 style="margin-top:5px">Demo XSS</h1>
-              </section>
+      <div>
+        <section>
+          <h1 style="margin-top: 5px">Demo XSS</h1>
+        </section>
+      </div>
+      <div>
+        <button id="login" onclick="redirectLogin()">Login</button>
+        <div class="container_name">
+          <span class="name_user"></span>
+          <button class="info-user" onclick="infoUser()">
+            Thông tin người dùng
+          </button>
+          <button class="logout" onclick="logOut()">Đăng xuất</button>
         </div>
-        <div>
-            <Button id="login" onclick="redirectLogin()">Login</Button>
-            <div class="container_name">
-              <span class="name_user"></span>
-              <button class="infor-user" onclick="inforUser()">Thông tin người dùng</button>
-              <button class="logout" onclick="logOut()">Đăng xuất</button>
-            </div>
-        </div>
+      </div>
     </div>
 
     <div class="container1">
-        <section id="comments">
-            <form>
-              <fieldset>
-                <textarea name="newReview" cols="80" rows="5" placeholder="Add your review"></textarea>
-              </fieldset>
-              <fieldset>
-                <button type="submit">Submit</button>
-              </fieldset>
-            </form>
-            <hr>
-            <h2>Comments</h2>
-            <dl>
-              $reviews$        
-            </dl>
-          </section>
+      <section id="comments">
+        <form>
+          <fieldset>
+            <textarea
+              name="newReview"
+              cols="80"
+              rows="5"
+              placeholder="Add your review"
+            ></textarea>
+          </fieldset>
+          <fieldset>
+            <button type="submit">Submit</button>
+          </fieldset>
+        </form>
+        <hr />
+        <h2>Comments</h2>
+        <dl>$reviews$</dl>
+      </section>
     </div>
     <script>
       function redirectLogin() {
@@ -90,40 +94,37 @@
       }
 
       function logOut() {
-        Cookies.remove("accessToken")
+        Cookies.remove("accessToken");
         window.location.replace("http://localhost:3000/login");
       }
 
-      function inforUser() {
-        window.location.replace("http://localhost:3000/infor-user");
+      function infoUser() {
+        window.location.replace("http://localhost:3000/info-user");
       }
 
       function loadToKen() {
-        const accessToken = Cookies.get('accessToken');
-        if(accessToken != null && accessToken != undefined) {
+        const accessToken = Cookies.get("accessToken");
+        if (accessToken != null && accessToken != undefined) {
           let payload = null;
           try {
             payload = jwt_decode(accessToken);
-            console.log(payload)
+            console.log(payload);
           } catch (e) {
             window.location.replace("http://localhost:3000/login");
           }
-        
 
           const btnLogin = document.querySelector("#login");
-          btnLogin.style.display = 'none'
+          btnLogin.style.display = "none";
 
-          const divContainerName = document.querySelector('.container_name')
-          divContainerName.style.display = 'initial'
+          const divContainerName = document.querySelector(".container_name");
+          divContainerName.style.display = "initial";
 
-          const spanNameUser = document.querySelector('.name_user')
-          spanNameUser.textContent = `Hi, ${payload.username}`
+          const spanNameUser = document.querySelector(".name_user");
+          spanNameUser.textContent = `Hi, ${payload.username}`;
         } else {
-
         }
-        
       }
-      loadToKen()
+      loadToKen();
     </script>
   </body>
 </html>

@@ -13,4 +13,19 @@ const findUserByUserName = (username) => {
   return null;
 };
 
-module.exports = { findUserByUserName };
+const updateUserByID = (id, user) => {
+  const users = JSON.parse(fs.readFileSync(DATASTORE, { encoding: "utf8" }));
+
+  for (let i = 0; i < users.length; i++) {
+    if (user.id === id) {
+      users[i] = user;
+      break;
+    }
+  }
+
+  fs.writeFileSync(DATASTORE, JSON.stringify(users));
+
+  return;
+};
+
+module.exports = { findUserByUserName, updateUserByID };

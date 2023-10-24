@@ -1,18 +1,32 @@
 const jwt = require("jsonwebtoken");
 
-const isValidAccessToken = (accessToken, secret) => {
+const parseAccessToken = (accessToken, secret) => {
   if (!accessToken) {
-    return false;
+    return null;
   }
 
   try {
-    const isAccessTokenValid = jwt.verify(accessToken, secret);
+    const payload = jwt.verify(accessToken, secret);
 
-    return !!isAccessTokenValid;
+    return payload;
   } catch (err) {
     console.log(err);
-    return false;
+    return null;
   }
 };
 
-module.exports = { isValidAccessToken };
+const generateTokenFromUser = (user, secret) => {
+  const { id, address, phoneNumber, name, username } = user;
+
+  const accessToken = jwt.sign(
+    { id, username, name, address, phoneNumber },
+    secret,
+    {
+      expiresIn: "100d",
+    }
+  );
+
+  return accessToken;
+};
+
+module.exports = { parseAccessToken, generateTokenFromUser };
