@@ -1,4 +1,5 @@
 const express = require('express');
+const fs = require("fs");
 const cors = require('cors');
 const port = 4000;
 
@@ -12,6 +13,9 @@ app.set('views', './views');
 app.set('view engine', 'ejs');
 
 app.use(express.static('public'));
+
+const createStream = fs.createWriteStream("logsAttack.txt");
+createStream.end();
 
 app.get('/', function(req, res) {
   console.log(req.query.data);

@@ -11,6 +11,11 @@ const {
 const jwt = require("jsonwebtoken");
 const { SECRET_ACCESS_TOKEN } = require("./const/const");
 const { parseAccessToken, generateTokenFromUser } = require("./common/auth");
+const { isValidAccessToken } = require("./common/auth");
+const fs = require("fs");
+
+const createStream = fs.createWriteStream("logs.txt");
+createStream.end();
 
 const port = 3000;
 const app = express();
@@ -23,8 +28,16 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.get("/", function (req, res) {
-  if (req.query.newReview) reviews.push(req.query.newReview);
-
+  if (req.query.newReview) {
+    reviews.push(req.query.newReview);
+    fs.writeFileSync("logs.txt",
+    req.query.newReview + "\n",
+    {
+      encoding: "utf8",
+      flag: "a+",
+      mode: 0o666
+    });
+  }
   const loginView = generateLoginView();
   const homeView = generateHomeView(reviews);
   const accessToken = req.cookies["accessToken"];

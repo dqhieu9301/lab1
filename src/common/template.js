@@ -2,10 +2,10 @@ const fs = require("fs");
 
 const generateHomeView = (reviews) => {
   const formattedReviews = reviews
-    .map((review) => `<dt>User</dt><dd>${review}</dd>`)
+    .map((review) => `<dt></dt><dd>${review}</dd>`)
     .join(" ");
   const template = fs.readFileSync("./templates/index.html", "utf8");
-  const view = template.replace("$reviews$", formattedReviews);
+  const view = template.replace("$content$", formattedReviews);
 
   return view;
 };
