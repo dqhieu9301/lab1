@@ -1,34 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Infor-user</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Info-user</title>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.min.js"></script>
     <style>
-        .container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-top: 200px;
-        }
-        #form {
-            display: flex;
-            flex-direction: column;
-            width: 250px;
-        }
-        .item {
-            margin-top: 10px;
-        }
+      .container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 200px;
+      }
+      #form {
+        display: flex;
+        flex-direction: column;
+        width: 250px;
+      }
+      .item {
+        margin-top: 10px;
+      }
     </style>
-</head>
-<body>
-    <div class="container">
-        <form action="/infor_user" method="POST" id="form">
-            <input type="text" name="username" placeholder="username" class="item"/>
-            <input type="text" name="adress" placeholder="address" class="item"/>
-            <input type="text" name="phoneNumber" placeholder="phoneNumber" class="item"/>
-            <button type="submit" class="item">Save</button>
-        </form>
-    </div>
-</body>
+  </head>
+  <body>
+    <div class="container"></div>
+    <script>
+      const form = document.createElement("form");
+      form.action = "/info-user";
+      form.method = "POST";
+      form.id = "form";
+
+      // Tạo các input elements
+      const nameInput = document.createElement("input");
+      nameInput.type = "text";
+      nameInput.name = "name";
+      nameInput.placeholder = "name";
+      nameInput.className = "item";
+
+      const addressInput = document.createElement("input");
+      addressInput.type = "text";
+      addressInput.name = "address";
+      addressInput.placeholder = "address";
+      addressInput.className = "item";
+
+      const phoneNumberInput = document.createElement("input");
+      phoneNumberInput.type = "text";
+      phoneNumberInput.name = "phoneNumber";
+      phoneNumberInput.placeholder = "phoneNumber";
+      phoneNumberInput.className = "item";
+
+      const saveButton = document.createElement("button");
+      saveButton.type = "submit";
+      saveButton.className = "item";
+      saveButton.textContent = "Save";
+
+      function loadForm() {
+        const accessToken = Cookies.get("accessToken");
+        if (accessToken != null && accessToken != undefined) {
+          let payload = null;
+          try {
+            payload = jwt_decode(accessToken);
+            console.log(payload);
+          } catch (e) {
+            window.location.replace("http://localhost:3000/login");
+          }
+
+          const { name, address, phoneNumber } = payload;
+          nameInput.value = name;
+          addressInput.value = address;
+          phoneNumberInput.value = phoneNumber;
+
+          form.appendChild(nameInput);
+          form.appendChild(addressInput);
+          form.appendChild(phoneNumberInput);
+          form.appendChild(saveButton);
+
+          const containerDiv = document.getElementsByClassName("container");
+          containerDiv[0].appendChild(form);
+        } else {
+          window.location.replace("http://localhost:3000/info-user");
+        }
+      }
+
+      loadForm();
+    </script>
+  </body>
 </html>

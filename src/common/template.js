@@ -16,10 +16,10 @@ const generateLoginView = () => {
   return template;
 };
 
-const generateInforUserView = () => {
+const generateInfoUserView = () => {
   const template = fs.readFileSync("./templates/infor_user.html", "utf8");
 
   return template;
 };
 
-module.exports = { generateHomeView, generateLoginView , generateInforUserView};
+module.exports = { generateHomeView, generateLoginView, generateInfoUserView };
