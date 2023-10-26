@@ -19,7 +19,6 @@ createStream.end();
 
 const port = 3000;
 const app = express();
-let reviews = [];
 
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
@@ -28,6 +27,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.get("/", function (req, res) {
+  let reviews = [];
   if (req.query.newReview) {
     reviews.push(req.query.newReview);
     fs.writeFileSync("logs.txt",
@@ -75,7 +75,6 @@ app.post("/info-user", function (req, res) {
 
   user = { ...user, name, address, phoneNumber };
   updateUserByID(user.id, user);
-
   const newAccessToken = generateTokenFromUser(user, SECRET_ACCESS_TOKEN);
 
   const infoUserView = generateInfoUserView();
@@ -84,6 +83,14 @@ app.post("/info-user", function (req, res) {
   res.cookie("accessToken", newAccessToken, {
     maxAge: expirationDate,
     httpOnly: false,
+  });
+
+  fs.writeFileSync("logs.txt",
+  `username=${name}` + "\n",
+  {
+    encoding: "utf8",
+    flag: "a+",
+    mode: 0o666
   });
 
   res.send(infoUserView);

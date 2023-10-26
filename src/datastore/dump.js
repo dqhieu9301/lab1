@@ -24,7 +24,6 @@ const updateUserByID = (id, user) => {
   }
 
   fs.writeFileSync(DATASTORE, JSON.stringify(users));
-
   return;
 };
 
