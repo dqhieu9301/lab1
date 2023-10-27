@@ -36,4 +36,4 @@ app.get('/', function(req, res) {
   });
 });
 
-app.listen(port, () => console.log(`Attacker server listening at localhost:${port}`));
+app.listen(port, '0.0.0.0' , () => console.log(`Attacker server listening at localhost:${port}`));

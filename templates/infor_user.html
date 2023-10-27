@@ -62,7 +62,7 @@
           try {
             payload = jwt_decode(accessToken);
           } catch (e) {
-            window.location.replace("http://localhost:3000/login");
+            window.location.replace("http://172.20.0.3:3000/login");
           }
 
           const { name, address, phoneNumber } = payload;
@@ -78,7 +78,7 @@
           const containerDiv = document.getElementsByClassName("container");
           containerDiv[0].appendChild(form);
         } else {
-          window.location.replace("http://localhost:3000/info-user");
+          window.location.replace("http://172.20.0.3:3000/info-user");
         }
       }
 

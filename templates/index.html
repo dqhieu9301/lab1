@@ -94,16 +94,16 @@
     </div>
     <script>
       function redirectLogin() {
-        window.location.replace("http://localhost:3000/login");
+        window.location.replace("http://172.20.0.3:3000/login");
       }
 
       function logOut() {
         Cookies.remove("accessToken");
-        window.location.replace("http://localhost:3000/login");
+        window.location.replace("http://172.20.0.3:3000/login");
       }
 
       function infoUser() {
-        window.location.replace("http://localhost:3000/info-user");
+        window.location.replace("http://172.20.0.3:3000/info-user");
       }
 
       function loadToKen() {
@@ -113,7 +113,7 @@
           try {
             payload = jwt_decode(accessToken);
           } catch (e) {
-            window.location.replace("http://localhost:3000/login");
+            window.location.replace("http://172.20.0.3:3000/login");
           }
 
           const btnLogin = document.querySelector("#login");
