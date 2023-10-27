@@ -61,7 +61,6 @@
           let payload = null;
           try {
             payload = jwt_decode(accessToken);
-            console.log(payload);
           } catch (e) {
             window.location.replace("http://localhost:3000/login");
           }

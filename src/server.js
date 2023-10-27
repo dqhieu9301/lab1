@@ -128,15 +128,14 @@ app.post("/login", function (req, res) {
   const accessToken = generateTokenFromUser(userFound, SECRET_ACCESS_TOKEN);
   const expirationDate = new Date(Date.now() + 100 * 24 * 60 * 60 * 1000); // 100 days in milliseconds
 
-  const homeView = generateHomeView(reviews);
   res.cookie("accessToken", accessToken, {
     maxAge: expirationDate,
     httpOnly: false,
   });
-  res.send(homeView);
+  res.redirect("/")
 });
 
 // inital(app)
-app.listen(port, "127.0.0.1", () => {
+app.listen(port, "0.0.0.0", () => {
   console.log(`Example app listening on port ${port}`);
 });
